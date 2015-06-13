@@ -399,7 +399,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Stephen Celis";
 				TargetAttributes = {
 					DC3773F219C8CBB3004FCF85 = {
@@ -579,6 +579,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -641,6 +642,7 @@
 			baseConfigurationReference = DC37742E19C8CE67004FCF85 /* SQLite.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -659,6 +661,7 @@
 			baseConfigurationReference = DC37742E19C8CE67004FCF85 /* SQLite.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -676,8 +679,10 @@
 			baseConfigurationReference = DC37742E19C8CE67004FCF85 /* SQLite.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "SQLite Tests/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.stephencelis.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_WHOLE_MODULE_OPTIMIZATION = NO;
 			};
@@ -688,7 +693,9 @@
 			baseConfigurationReference = DC37742E19C8CE67004FCF85 /* SQLite.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "SQLite Tests/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.stephencelis.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_WHOLE_MODULE_OPTIMIZATION = NO;
 			};
@@ -699,6 +706,7 @@
 			baseConfigurationReference = DC37742E19C8CE67004FCF85 /* SQLite.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -721,6 +729,7 @@
 			baseConfigurationReference = DC37742E19C8CE67004FCF85 /* SQLite.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -742,8 +751,10 @@
 			baseConfigurationReference = DC37742E19C8CE67004FCF85 /* SQLite.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "SQLite Tests/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.stephencelis.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "SQLiteCipher Tests";
 				SWIFT_WHOLE_MODULE_OPTIMIZATION = NO;
 			};
@@ -754,7 +765,9 @@
 			baseConfigurationReference = DC37742E19C8CE67004FCF85 /* SQLite.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "SQLite Tests/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.stephencelis.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "SQLiteCipher Tests";
 				SWIFT_WHOLE_MODULE_OPTIMIZATION = NO;
 			};
