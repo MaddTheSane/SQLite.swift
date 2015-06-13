@@ -69,9 +69,9 @@ public struct Query {
 
     /// Sets the SELECT clause on the query.
     ///
-    /// :param: all A list of expressions to select.
+    /// - parameter all: A list of expressions to select.
     ///
-    /// :returns: A query with the given SELECT clause applied.
+    /// - returns: A query with the given SELECT clause applied.
     public func select(all: Expressible...) -> Query {
         var query = self
         (query.distinct, query.columns) = (false, all)
@@ -80,9 +80,9 @@ public struct Query {
 
     /// Sets the SELECT DISTINCT clause on the query.
     ///
-    /// :param: columns A list of expressions to select.
+    /// - parameter columns: A list of expressions to select.
     ///
-    /// :returns: A query with the given SELECT DISTINCT clause applied.
+    /// - returns: A query with the given SELECT DISTINCT clause applied.
     public func select(distinct columns: Expressible...) -> Query {
         var query = self
         (query.distinct, query.columns) = (true, columns)
@@ -91,9 +91,9 @@ public struct Query {
 
     /// Sets the SELECT clause on the query.
     ///
-    /// :param: star A literal *.
+    /// - parameter star: A literal *.
     ///
-    /// :returns: A query with SELECT * applied.
+    /// - returns: A query with SELECT * applied.
     public func select(star: Star) -> Query {
         var query = self
         (query.distinct, query.columns) = (false, nil)
@@ -102,44 +102,44 @@ public struct Query {
 
     /// Sets the SELECT DISTINCT * clause on the query.
     ///
-    /// :param: star A literal *.
+    /// - parameter star: A literal *.
     ///
-    /// :returns: A query with SELECT * applied.
+    /// - returns: A query with SELECT * applied.
     public func select(distinct star: Star) -> Query {
         return select(distinct: star(nil, nil))
     }
 
     /// Adds an INNER JOIN clause to the query.
     ///
-    /// :param: table A query representing the other table.
+    /// - parameter table: A query representing the other table.
     ///
-    /// :param: on    A boolean expression describing the join condition.
+    /// - parameter on:    A boolean expression describing the join condition.
     ///
-    /// :returns: A query with the given INNER JOIN clause applied.
+    /// - returns: A query with the given INNER JOIN clause applied.
     public func join(table: Query, on: Expression<Bool>) -> Query {
         return join(.Inner, table, on: on)
     }
 
     /// Adds an INNER JOIN clause to the query.
     ///
-    /// :param: table A query representing the other table.
+    /// - parameter table: A query representing the other table.
     ///
-    /// :param: on    A boolean expression describing the join condition.
+    /// - parameter on:    A boolean expression describing the join condition.
     ///
-    /// :returns: A query with the given INNER JOIN clause applied.
+    /// - returns: A query with the given INNER JOIN clause applied.
     public func join(table: Query, on: Expression<Bool?>) -> Query {
         return join(.Inner, table, on: on)
     }
 
     /// Adds a JOIN clause to the query.
     ///
-    /// :param: type  The JOIN operator.
+    /// - parameter type:  The JOIN operator.
     ///
-    /// :param: table A query representing the other table.
+    /// - parameter table: A query representing the other table.
     ///
-    /// :param: on    A boolean expression describing the join condition.
+    /// - parameter on:    A boolean expression describing the join condition.
     ///
-    /// :returns: A query with the given JOIN clause applied.
+    /// - returns: A query with the given JOIN clause applied.
     public func join(type: JoinType, _ table: Query, on: Expression<Bool>) -> Query {
         var query = self
         let join = (type: type, table: table, condition: table.filter.map { on && $0 } ?? on)
@@ -149,22 +149,22 @@ public struct Query {
 
     /// Adds a JOIN clause to the query.
     ///
-    /// :param: type  The JOIN operator.
+    /// - parameter type:  The JOIN operator.
     ///
-    /// :param: table A query representing the other table.
+    /// - parameter table: A query representing the other table.
     ///
-    /// :param: on    A boolean expression describing the join condition.
+    /// - parameter on:    A boolean expression describing the join condition.
     ///
-    /// :returns: A query with the given JOIN clause applied.
+    /// - returns: A query with the given JOIN clause applied.
     public func join(type: JoinType, _ table: Query, on: Expression<Bool?>) -> Query {
         return join(type, table, on: Expression<Bool>(on))
     }
 
     /// Adds a condition to the query’s WHERE clause.
     ///
-    /// :param: condition A boolean expression to filter on.
+    /// - parameter condition: A boolean expression to filter on.
     ///
-    /// :returns: A query with the given WHERE clause applied.
+    /// - returns: A query with the given WHERE clause applied.
     public func filter(condition: Expression<Bool>) -> Query {
         var query = self
         query.filter = filter.map { $0 && condition } ?? condition
@@ -173,51 +173,51 @@ public struct Query {
 
     /// Adds a condition to the query’s WHERE clause.
     ///
-    /// :param: condition A boolean expression to filter on.
+    /// - parameter condition: A boolean expression to filter on.
     ///
-    /// :returns: A query with the given WHERE clause applied.
+    /// - returns: A query with the given WHERE clause applied.
     public func filter(condition: Expression<Bool?>) -> Query {
         return filter(Expression<Bool>(condition))
     }
 
     /// Sets a GROUP BY clause on the query.
     ///
-    /// :param: by A list of columns to group by.
+    /// - parameter by: A list of columns to group by.
     ///
-    /// :returns: A query with the given GROUP BY clause applied.
+    /// - returns: A query with the given GROUP BY clause applied.
     public func group(by: Expressible...) -> Query {
         return group(by)
     }
 
     /// Sets a GROUP BY clause (with optional HAVING) on the query.
     ///
-    /// :param: by       A column to group by.
+    /// - parameter by:       A column to group by.
     ///
-    /// :param: having   A condition determining which groups are returned.
+    /// - parameter having:   A condition determining which groups are returned.
     ///
-    /// :returns: A query with the given GROUP BY clause applied.
+    /// - returns: A query with the given GROUP BY clause applied.
     public func group(by: Expressible, having: Expression<Bool>) -> Query {
         return group([by], having: having)
     }
 
     /// Sets a GROUP BY clause (with optional HAVING) on the query.
     ///
-    /// :param: by       A column to group by.
+    /// - parameter by:       A column to group by.
     ///
-    /// :param: having   A condition determining which groups are returned.
+    /// - parameter having:   A condition determining which groups are returned.
     ///
-    /// :returns: A query with the given GROUP BY clause applied.
+    /// - returns: A query with the given GROUP BY clause applied.
     public func group(by: Expressible, having: Expression<Bool?>) -> Query {
         return group([by], having: having)
     }
 
     /// Sets a GROUP BY-HAVING clause on the query.
     ///
-    /// :param: by       A list of columns to group by.
+    /// - parameter by:       A list of columns to group by.
     ///
-    /// :param: having   A condition determining which groups are returned.
+    /// - parameter having:   A condition determining which groups are returned.
     ///
-    /// :returns: A query with the given GROUP BY clause applied.
+    /// - returns: A query with the given GROUP BY clause applied.
     public func group(by: [Expressible], having: Expression<Bool?>) -> Query {
         return group(by, having: Expression<Bool>(having))
     }
@@ -232,18 +232,18 @@ public struct Query {
 
     /// Sets an ORDER BY clause on the query.
     ///
-    /// :param: by An ordered list of columns and directions to sort by.
+    /// - parameter by: An ordered list of columns and directions to sort by.
     ///
-    /// :returns: A query with the given ORDER BY clause applied.
+    /// - returns: A query with the given ORDER BY clause applied.
     public func order(by: Expressible...) -> Query {
         return order(by)
     }
 
     /// Sets an ORDER BY clause on the query.
     ///
-    /// :param: by An ordered list of columns and directions to sort by.
+    /// - parameter by: An ordered list of columns and directions to sort by.
     ///
-    /// :returns: A query with the given ORDER BY clause applied.
+    /// - returns: A query with the given ORDER BY clause applied.
     public func order(by: [Expressible]) -> Query {
         var query = self
         query.order = by
@@ -252,26 +252,26 @@ public struct Query {
 
     /// Sets the LIMIT clause (and resets any OFFSET clause) on the query.
     ///
-    /// :param: to The maximum number of rows to return.
+    /// - parameter to: The maximum number of rows to return.
     ///
-    /// :returns: A query with the given LIMIT clause applied.
+    /// - returns: A query with the given LIMIT clause applied.
     public func limit(to: Int?) -> Query {
         return limit(to: to, offset: nil)
     }
 
     /// Sets LIMIT and OFFSET clauses on the query.
     ///
-    /// :param: to     The maximum number of rows to return.
+    /// - parameter to:     The maximum number of rows to return.
     ///
-    /// :param: offset The number of rows to skip.
+    /// - parameter offset: The number of rows to skip.
     ///
-    /// :returns: A query with the given LIMIT and OFFSET clauses applied.
+    /// - returns: A query with the given LIMIT and OFFSET clauses applied.
     public func limit(to: Int, offset: Int) -> Query {
         return limit(to: to, offset: offset)
     }
 
     // prevents limit(nil, offset: 5)
-    private func limit(#to: Int?, offset: Int? = nil) -> Query {
+    private func limit(to to: Int?, offset: Int? = nil) -> Query {
         var query = self
         query.limit = to.map { ($0, offset) }
         return query
@@ -281,9 +281,9 @@ public struct Query {
 
     /// Prefixes a column expression with the query’s table name or alias.
     ///
-    /// :param: column A column expression.
+    /// - parameter column: A column expression.
     ///
-    /// :returns: A column expression namespaced with the query’s table name or
+    /// - returns: A column expression namespaced with the query’s table name or
     ///           alias.
     public func namespace<V>(column: Expression<V>) -> Expression<V> {
         return Expression(.join(".", [tableName, column]))
@@ -311,9 +311,9 @@ public struct Query {
 
     /// Prefixes a star with the query’s table name or alias.
     ///
-    /// :param: star A literal `*`.
+    /// - parameter star: A literal `*`.
     ///
-    /// :returns: A `*` expression namespaced with the query’s table name or
+    /// - returns: A `*` expression namespaced with the query’s table name or
     ///           alias.
     public subscript(star: Star) -> Expression<Void> {
         return namespace(star(nil, nil))
@@ -423,29 +423,29 @@ public struct Query {
 
     /// Runs an INSERT statement against the query.
     ///
-    /// :param: action An optional action to run in case of a conflict.
-    /// :param: value  A value to set.
-    /// :param: more   A list of additional values to set.
+    /// - parameter action: An optional action to run in case of a conflict.
+    /// - parameter value:  A value to set.
+    /// - parameter more:   A list of additional values to set.
     ///
-    /// :returns: The rowid and statement.
+    /// - returns: The rowid and statement.
     public func insert(or action: OnConflict? = nil, _ value: Setter, _ more: Setter...) -> Insert {
         return insert(or: action, [value] + more)
     }
 
     /// Runs an INSERT statement against the query.
     ///
-    /// :param: action An optional action to run in case of a conflict.
-    /// :param: values An array of values to set.
+    /// - parameter action: An optional action to run in case of a conflict.
+    /// - parameter values: An array of values to set.
     ///
-    /// :returns: The rowid and statement.
+    /// - returns: The rowid and statement.
     public func insert(or action: OnConflict? = nil, _ values: [Setter]) -> Insert {
-        let statement = insertStatement(or: action, values).run()
+        let statement = insertStatement(action, values).run()
         return (statement.failed ? nil : database.lastInsertRowid, statement)
     }
 
     /// Runs an INSERT statement against the query with DEFAULT VALUES.
     ///
-    /// :returns: The rowid and statement.
+    /// - returns: The rowid and statement.
     public func insert() -> Insert {
         let statement = database.run("INSERT INTO \(tableName.unaliased.SQL) DEFAULT VALUES")
         return (statement.failed ? nil : database.lastInsertRowid, statement)
@@ -454,9 +454,9 @@ public struct Query {
     /// Runs an INSERT statement against the query with the results of another
     /// query.
     ///
-    /// :param: query A query to SELECT results from.
+    /// - parameter query: A query to SELECT results from.
     ///
-    /// :returns: The number of updated rows and statement.
+    /// - returns: The number of updated rows and statement.
     public func insert(query: Query) -> Change {
         let expression = query.selectExpression
         let statement = database.run("INSERT INTO \(tableName.unaliased.SQL) \(expression.SQL)", expression.bindings)
@@ -465,18 +465,18 @@ public struct Query {
 
     /// Runs an UPDATE statement against the query.
     ///
-    /// :param: values A list of values to set.
+    /// - parameter values: A list of values to set.
     ///
-    /// :returns: The number of updated rows and statement.
+    /// - returns: The number of updated rows and statement.
     public func update(values: Setter...) -> Change {
         return update(values)
     }
 
     /// Runs an UPDATE statement against the query.
     ///
-    /// :param: values An array of of values to set.
+    /// - parameter values: An array of of values to set.
     ///
-    /// :returns: The number of updated rows and statement.
+    /// - returns: The number of updated rows and statement.
     public func update(values: [Setter]) -> Change {
         let statement = updateStatement(values).run()
         return (statement.failed ? nil : database.changes, statement)
@@ -484,7 +484,7 @@ public struct Query {
 
     /// Runs a DELETE statement against the query.
     ///
-    /// :returns: The number of deleted rows and statement.
+    /// - returns: The number of deleted rows and statement.
     public func delete() -> Change {
         let statement = deleteStatement.run()
         return (statement.failed ? nil : database.changes, statement)
@@ -494,36 +494,36 @@ public struct Query {
 
     /// Runs `count()` against the query.
     ///
-    /// :param: column The column used for the calculation.
+    /// - parameter column: The column used for the calculation.
     ///
-    /// :returns: The number of rows matching the given column.
+    /// - returns: The number of rows matching the given column.
     public func count<V: Value>(column: Expression<V?>) -> Int {
         return calculate(_count(column))!
     }
 
     /// Runs `count()` with DISTINCT against the query.
     ///
-    /// :param: column The column used for the calculation.
+    /// - parameter column: The column used for the calculation.
     ///
-    /// :returns: The number of rows matching the given column.
+    /// - returns: The number of rows matching the given column.
     public func count<V: Value>(distinct column: Expression<V>) -> Int {
         return calculate(_count(distinct: column))!
     }
 
     /// Runs `count()` with DISTINCT against the query.
     ///
-    /// :param: column The column used for the calculation.
+    /// - parameter column: The column used for the calculation.
     ///
-    /// :returns: The number of rows matching the given column.
+    /// - returns: The number of rows matching the given column.
     public func count<V: Value>(distinct column: Expression<V?>) -> Int {
         return calculate(_count(distinct: column))!
     }
 
     /// Runs `max()` against the query.
     ///
-    /// :param: column The column used for the calculation.
+    /// - parameter column: The column used for the calculation.
     ///
-    /// :returns: The largest value of the given column.
+    /// - returns: The largest value of the given column.
     public func max<V: Value where V.Datatype: Comparable>(column: Expression<V>) -> V? {
         return calculate(_max(column))
     }
@@ -533,9 +533,9 @@ public struct Query {
 
     /// Runs `min()` against the query.
     ///
-    /// :param: column The column used for the calculation.
+    /// - parameter column: The column used for the calculation.
     ///
-    /// :returns: The smallest value of the given column.
+    /// - returns: The smallest value of the given column.
     public func min<V: Value where V.Datatype: Comparable>(column: Expression<V>) -> V? {
         return calculate(_min(column))
     }
@@ -545,9 +545,9 @@ public struct Query {
 
     /// Runs `avg()` against the query.
     ///
-    /// :param: column The column used for the calculation.
+    /// - parameter column: The column used for the calculation.
     ///
-    /// :returns: The average value of the given column.
+    /// - returns: The average value of the given column.
     public func average<V: Value where V.Datatype: Number>(column: Expression<V>) -> Double? {
         return calculate(_average(column))
     }
@@ -557,9 +557,9 @@ public struct Query {
 
     /// Runs `avg()` with DISTINCT against the query.
     ///
-    /// :param: column The column used for the calculation.
+    /// - parameter column: The column used for the calculation.
     ///
-    /// :returns: The average value of the given column.
+    /// - returns: The average value of the given column.
     public func average<V: Value where V.Datatype: Number>(distinct column: Expression<V>) -> Double? {
         return calculate(_average(distinct: column))
     }
@@ -569,9 +569,9 @@ public struct Query {
 
     /// Runs `sum()` against the query.
     ///
-    /// :param: column The column used for the calculation.
+    /// - parameter column: The column used for the calculation.
     ///
-    /// :returns: The sum of the given column’s values.
+    /// - returns: The sum of the given column’s values.
     public func sum<V: Value where V.Datatype: Number>(column: Expression<V>) -> V? {
         return calculate(_sum(column))
     }
@@ -581,9 +581,9 @@ public struct Query {
 
     /// Runs `sum()` with DISTINCT against the query.
     ///
-    /// :param: column The column used for the calculation.
+    /// - parameter column: The column used for the calculation.
     ///
-    /// :returns: The sum of the given column’s values.
+    /// - returns: The sum of the given column’s values.
     public func sum<V: Value where V.Datatype: Number>(distinct column: Expression<V>) -> V? {
         return calculate(_sum(distinct: column))
     }
@@ -593,9 +593,9 @@ public struct Query {
 
     /// Runs `total()` against the query.
     ///
-    /// :param: column The column used for the calculation.
+    /// - parameter column: The column used for the calculation.
     ///
-    /// :returns: The total of the given column’s values.
+    /// - returns: The total of the given column’s values.
     public func total<V: Value where V.Datatype: Number>(column: Expression<V>) -> Double {
         return calculate(_total(column))!
     }
@@ -605,9 +605,9 @@ public struct Query {
 
     /// Runs `total()` with DISTINCT against the query.
     ///
-    /// :param: column The column used for the calculation.
+    /// - parameter column: The column used for the calculation.
     ///
-    /// :returns: The total of the given column’s values.
+    /// - returns: The total of the given column’s values.
     public func total<V: Value where V.Datatype: Number>(distinct column: Expression<V>) -> Double {
         return calculate(_total(distinct: column))!
     }
@@ -661,7 +661,7 @@ public struct Row {
 
     /// Returns a row’s value for the given column.
     ///
-    /// :param: column An expression representing a column selected in a Query.
+    /// - parameter column: An expression representing a column selected in a Query.
     ///
     /// returns The value for the given column.
     public func get<V: Value>(column: Expression<V>) -> V {
@@ -675,13 +675,13 @@ public struct Row {
 
         if let idx = columnNames[column.SQL] { return valueAtIndex(idx) }
 
-        let similar = filter(columnNames.keys) { $0.hasSuffix(".\(column.SQL)") }
+        let similar = columnNames.keys.filter { $0.hasSuffix(".\(column.SQL)") }
         if similar.count == 1 { return valueAtIndex(columnNames[similar[0]]!) }
 
         if similar.count > 1 {
             fatalError("ambiguous column \(quote(literal: column.SQL)) (please disambiguate: \(similar))")
         }
-        fatalError("no such column \(quote(literal: column.SQL)) in columns: \(sorted(columnNames.keys))")
+        fatalError("no such column \(quote(literal: column.SQL)) in columns: \(columnNames.keys.sort())")
     }
 
     // FIXME: rdar://18673897 // ... subscript<T>(expression: Expression<V>) -> Expression<V>
@@ -722,7 +722,7 @@ public struct QueryGenerator: GeneratorType {
     private lazy var columnNames: [String: Int] = {
         var (columnNames, idx) = ([String: Int](), 0)
         column: for each in self.query.columns ?? [Expression<Void>(literal: "*")] {
-            let pair = split(each.expression.SQL) { $0 == "." }
+            let pair = split(each.expression.SQL.characters) { $0 == "." }.map { String($0) }
             let (tableName, column) = (pair.count > 1 ? pair.first : nil, pair.last!)
 
             func expandGlob(namespace: Bool) -> Query -> Void {
@@ -766,7 +766,7 @@ public struct QueryGenerator: GeneratorType {
 }
 
 // MARK: - Printable
-extension Query: Printable {
+extension Query: CustomStringConvertible {
 
     public var description: String {
         return tableName.SQL
@@ -776,16 +776,16 @@ extension Query: Printable {
 
 /// The result of an INSERT executed by a query.
 ///
-/// :param: rowid     The insert rowid of the result (or `nil` on failure).
+/// - parameter rowid:     The insert rowid of the result (or `nil` on failure).
 ///
-/// :param: statement The associated statement.
+/// - parameter statement: The associated statement.
 public typealias Insert = (rowid: Int64?, statement: Statement)
 
 /// The result of an bulk INSERT, UPDATE or DELETE executed by a query.
 ///
-/// :param: changes   The number of rows affected (or `nil` on failure).
+/// - parameter changes:   The number of rows affected (or `nil` on failure).
 ///
-/// :param: statement The associated statement.
+/// - parameter statement: The associated statement.
 public typealias Change = (changes: Int?, statement: Statement)
 
 /// If `lhs` fails, return it. Otherwise, execute `rhs` and return its
@@ -824,8 +824,8 @@ extension Database {
 
 private func _count<V: Value>(expression: Expression<V?>) -> Expression<Int> { return count(expression) }
 
-private func _count<V: Value>(#distinct: Expression<V>) -> Expression<Int> { return count(distinct: distinct) }
-private func _count<V: Value>(#distinct: Expression<V?>) -> Expression<Int> { return count(distinct: distinct) }
+private func _count<V: Value>(distinct distinct: Expression<V>) -> Expression<Int> { return count(distinct: distinct) }
+private func _count<V: Value>(distinct distinct: Expression<V?>) -> Expression<Int> { return count(distinct: distinct) }
 
 private func _count(star: Star) -> Expression<Int> { return count(star) }
 
@@ -846,17 +846,17 @@ private func _min<V: Value where V.Datatype: Comparable>(expression: Expression<
 private func _average<V: Value where V.Datatype: Number>(expression: Expression<V>) -> Expression<Double?> { return average(expression) }
 private func _average<V: Value where V.Datatype: Number>(expression: Expression<V?>) -> Expression<Double?> { return average(expression) }
 
-private func _average<V: Value where V.Datatype: Number>(#distinct: Expression<V>) -> Expression<Double?> { return average(distinct: distinct) }
-private func _average<V: Value where V.Datatype: Number>(#distinct: Expression<V?>) -> Expression<Double?> { return average(distinct: distinct) }
+private func _average<V: Value where V.Datatype: Number>(distinct distinct: Expression<V>) -> Expression<Double?> { return average(distinct: distinct) }
+private func _average<V: Value where V.Datatype: Number>(distinct distinct: Expression<V?>) -> Expression<Double?> { return average(distinct: distinct) }
 
 private func _sum<V: Value where V.Datatype: Number>(expression: Expression<V>) -> Expression<V?> { return sum(expression) }
 private func _sum<V: Value where V.Datatype: Number>(expression: Expression<V?>) -> Expression<V?> { return sum(expression) }
 
-private func _sum<V: Value where V.Datatype: Number>(#distinct: Expression<V>) -> Expression<V?> { return sum(distinct: distinct) }
-private func _sum<V: Value where V.Datatype: Number>(#distinct: Expression<V?>) -> Expression<V?> { return sum(distinct: distinct) }
+private func _sum<V: Value where V.Datatype: Number>(distinct distinct: Expression<V>) -> Expression<V?> { return sum(distinct: distinct) }
+private func _sum<V: Value where V.Datatype: Number>(distinct distinct: Expression<V?>) -> Expression<V?> { return sum(distinct: distinct) }
 
 private func _total<V: Value where V.Datatype: Number>(expression: Expression<V>) -> Expression<Double> { return total(expression) }
 private func _total<V: Value where V.Datatype: Number>(expression: Expression<V?>) -> Expression<Double> { return total(expression) }
 
-private func _total<V: Value where V.Datatype: Number>(#distinct: Expression<V>) -> Expression<Double> { return total(distinct: distinct) }
-private func _total<V: Value where V.Datatype: Number>(#distinct: Expression<V?>) -> Expression<Double> { return total(distinct: distinct) }
+private func _total<V: Value where V.Datatype: Number>(distinct distinct: Expression<V>) -> Expression<Double> { return total(distinct: distinct) }
+private func _total<V: Value where V.Datatype: Number>(distinct distinct: Expression<V?>) -> Expression<Double> { return total(distinct: distinct) }
