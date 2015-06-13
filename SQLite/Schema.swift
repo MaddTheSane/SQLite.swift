@@ -434,7 +434,7 @@ public final class SchemaBuilder {
 
 private func namespace(column: Expressible) -> Expressible {
     let expression = column.expression
-    if !expression.SQL.characters.contains(".".characters) { return expression }
+    if !expression.SQL.characters.contains(".") { return expression }
     let reference = expression.SQL.characters.reduce("") { SQL, character in
         let string = String(character)
         return SQL + (string == "." ? "(" : string)
@@ -477,12 +477,12 @@ private func createSQL(
     parts.append(type)
     if ifNotExists { parts.append("IF NOT EXISTS") }
     parts.append(name)
-    return Swift.join(" ", parts)
+    return " ".join(parts)
 }
 
 private func dropSQL(type: String, ifExists: Bool, name: String) -> String {
     var parts: [String] = ["DROP \(type)"]
     if ifExists { parts.append("IF EXISTS") }
     parts.append(name)
-    return Swift.join(" ", parts)
+    return " ".join(parts)
 }

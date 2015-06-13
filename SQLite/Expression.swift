@@ -97,7 +97,7 @@ public struct Expression<T> {
             SQL.append(expression.SQL)
             bindings.extend(expression.bindings)
         }
-        return Expression<Void>(literal: Swift.join(separator, SQL), bindings)
+        return Expression<Void>(literal: separator.join(SQL), bindings)
     }
 
     internal init<V>(_ expression: Expression<V>) {

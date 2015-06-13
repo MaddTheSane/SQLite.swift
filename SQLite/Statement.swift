@@ -22,8 +22,8 @@
 // THE SOFTWARE.
 //
 
-internal let SQLITE_STATIC = sqlite3_destructor_type(COpaquePointer(bitPattern: 0))
-internal let SQLITE_TRANSIENT = sqlite3_destructor_type(COpaquePointer(bitPattern: -1))
+internal let SQLITE_STATIC = unsafeBitCast(COpaquePointer(bitPattern: 0), sqlite3_destructor_type.self)
+internal let SQLITE_TRANSIENT = unsafeBitCast(COpaquePointer(bitPattern: -1), sqlite3_destructor_type.self)
 
 /// A single SQL statement.
 public final class Statement {

@@ -675,7 +675,7 @@ public struct Row {
 
         if let idx = columnNames[column.SQL] { return valueAtIndex(idx) }
 
-        let similar = columnNames.keys.filter { $0.hasSuffix(".\(column.SQL)") }
+        let similar = Array(columnNames.keys.filter { $0.hasSuffix(".\(column.SQL)") })
         if similar.count == 1 { return valueAtIndex(columnNames[similar[0]]!) }
 
         if similar.count > 1 {
